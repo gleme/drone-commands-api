@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = require('../app');
 const debug = require('debug')('drone-commands-api:server');
 const http = require('http');
-const database = require('../service/database.service');
+const database = require('../service/database');
 
 /**
  * Get port from environment and store in Express.
