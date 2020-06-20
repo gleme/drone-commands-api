@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www"
+    "start": "node ./src/bin/www",
+    "start:dev": "nodemon --inspect=0.0.0.0 ./src/bin/www"
   },
   "dependencies": {
     "async": "^3.2.0",
