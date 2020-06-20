@@ -13,15 +13,16 @@ async function invokeCommand(name) {
     cmdProcess.on('error', error => {
         // TODO: update command invocation status and notify user
     });
+    cmdProcess.on('close', code => {
 
-    cmdProcess.on('close', () => {
+    });
+    cmdProcess.on('exit', code => {
         // TODO: update command invocation status and notify user
     });
 
     // TODO: update command invocation status
 
 }
-
 
 module.exports = {
     invokeCommand,
