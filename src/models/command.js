@@ -12,6 +12,10 @@ const schema = new Schema({
     versionKey: false
 });
 
+schema.statics.findByName = function(name) {
+    return this.findOne({ name });
+}
+
 const Command = model('command', schema);
 
 module.exports = {
