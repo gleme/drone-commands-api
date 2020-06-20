@@ -1,0 +1,36 @@
+
+version: '2.4'
+services:
+  mongodb:
+    image: mongo
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/drone-inspection --quiet
+    environment:
+      MONGO_INITDB_DATABASE: drone-inspection
+      MONGO_NON_ROOT_USERNAME: iot
+      MONGO_NON_ROOT_PASSWORD: iot@2020
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+      - ./scripts/mongo-user.sh:/docker-entrypoint-initdb.d/mongo-user.sh:ro
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT}:${PORT}"
+      - "9229:9229"
+    command: npm run start:dev
+    env_file:
+      - ./.env
+    volumes:
+      - .:/usr/drone-commands-api/
+      - /usr/drone-commands-api/node_modules
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    links:
+      - mongodb
