@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/bin/www",
-    "start:dev": "nodemon --inspect=0.0.0.0 ./src/bin/www"
+    "start": "node ./src/bin/www.js",
+    "start:dev": "nodemon --inspect=0.0.0.0 ./src/bin/www.js"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "async": "^3.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

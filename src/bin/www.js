@@ -7,6 +7,7 @@ require('dotenv').config();
 const app = require('../app');
 const debug = require('debug')('drone-commands-api:server');
 const http = require('http');
+const database = require('../service/database.service');
 
 /**
  * Get port from environment and store in Express.
@@ -20,14 +21,19 @@ app.set('port', port);
  */
 
 const server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+database.connect()
+  .then(() => {
+    /**
+     * Listen on provided port, on all network interfaces.
+    */
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+  })
+  .catch(error => {
+    console.error('database connection error', error);
+    process.exit(-1);
+  });
 
 /**
  * Normalize a port into a number, string, or false.
