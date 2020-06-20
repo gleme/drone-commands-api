@@ -44,3 +44,6 @@ typings/
 
 # Data
 /data
+
+# OS Files
+.DS_Store
