@@ -41,3 +41,6 @@ typings/
 
 # Environment Variables
 *.env
+
+# Data
+/data
