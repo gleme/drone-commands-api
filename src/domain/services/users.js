@@ -40,7 +40,7 @@ async function login(dto) {
     }
 
     const rawToken = _.pick(user, '_id', 'firstName', 'lastName', 'role');
-    return auth.generateToken(rawToken);
+    return authService.generateToken(rawToken);
 }
 
 function get(id) {

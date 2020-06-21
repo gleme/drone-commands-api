@@ -17,9 +17,9 @@ function create() {
                 .withMessage('field \'firstName\' cannot be an empty string'),
         body('lastName')
             .isString()
-                .withMessage('field \'firstName\' must be a string')
+                .withMessage('field \'lastName\' must be a string')
             .notEmpty()
-                .withMessage('field \'firstName\' cannot be an empty string'),
+                .withMessage('field \'lastName\' cannot be an empty string'),
         body('email')
             .isString()
                 .withMessage('field \'email\' must be a string')

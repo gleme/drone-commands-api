@@ -1,14 +1,15 @@
-const services = require('../domain/services');
-const { UserUnauthorizedException } = require('../exceptions');
+const { matchedData } = require('express-validator');
+const userService = require('../domain/services/users');
+const { UserUnauthorizedError } = require('../exceptions/users');
 
 async function login(req, res, next) { 
     
     try {
-        const token = await services.users.login(req.body);
+        const dto = matchedData(req, { onlyValidData: true });
+        const token = await userService.login(dto);
         res.status(200).json({ token });
     } catch (error) {
-        
-        if (error instanceof UserUnauthorizedException) {
+        if (error instanceof UserUnauthorizedError) {
             return res.boom.unauthorized(error.message);
         }
 

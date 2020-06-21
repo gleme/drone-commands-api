@@ -1,7 +1,7 @@
 
 const _ = require('lodash');
 const { matchedData } = require('express-validator');
-const userService = require('../domain/services/users');
+const usersService = require('../domain/services/users');
 const {
     UserUnauthorizedError,
     UserAlreadyExistsError,
@@ -11,7 +11,7 @@ const {
 async function create(req, res, next) { 
     try {
         const dto = matchedData(req, { onlyValidData: true });
-        const createUserDto = await userService.create(dto);
+        const createUserDto = await usersService.create(dto);
         res.status(201).json(createUserDto);
     } catch (error) {
         next(error);
@@ -20,7 +20,7 @@ async function create(req, res, next) {
 
 async function remove(req, res, next) {
     try {
-        await userService.remove(req.params.id);
+        await usersService.remove(req.params.id);
         res.status(204).end();
     } catch (error) {
         next(error);
@@ -29,7 +29,7 @@ async function remove(req, res, next) {
 
 async function listAll(req, res, next) {
     try {
-        const users = await userService.listAll();
+        const users = await usersService.listAll();
         res.status(200).json(users);
     } catch (error) {
         next(error);
@@ -39,7 +39,7 @@ async function listAll(req, res, next) {
 async function partiallyUpdate(req, res, next) {
     try {
         const updateData = matchedData(req, { onlyValidData: true });
-        const user = await userService.partiallyUpdate(req.params.id, updateData);
+        const user = await usersService.partiallyUpdate(req.params.id, updateData);
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -48,7 +48,7 @@ async function partiallyUpdate(req, res, next) {
 
 async function activate(req, res, next) {
     try {
-        const user = await userService.activate(req.params.id);
+        const user = await usersService.activate(req.params.id);
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -57,7 +57,7 @@ async function activate(req, res, next) {
 
 async function inactivate(req, res, next) {
     try {
-        const user = await userService.inactivate(req.params.id);
+        const user = await usersService.inactivate(req.params.id);
         res.status(200).json(user);
     } catch (error) {
         next(error);
