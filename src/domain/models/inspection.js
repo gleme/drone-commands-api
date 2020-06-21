@@ -2,7 +2,7 @@
 const { Schema, model } = require('mongoose');
 const async = require('async');
 
-const InvocationStatus = {
+const InspectionStatus = {
     EXECUTING: 'EXECUTING',
     STOPPED: 'STOPPED',
     FINISHED_EXECUTION: 'FINISHED_EXECUTION',
@@ -10,25 +10,19 @@ const InvocationStatus = {
     ERROR: 'ERROR',
 };
 
-const Commands = {
-    INICIAR: 'INICIAR',
-    INTERROMPER: 'INTERROMPER',
-    PAUSAR: 'PAUSAR',
-};
-
-
 const schema = new Schema({
-    command: { type: String, enum: Object.values(Commands), required: true },
     status: {
         type: String,
-        enum: Object.values(InvocationStatus),
+        enum: Object.values(InspectionStatus),
         required: true,
-        default: InvocationStatus.EXECUTING,
+        default: InspectionStatus.EXECUTING,
     },
     requestId: { type: String, unique: true, required: true },
     messageId: { type: String, unique: true, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    logs: [{ type: Schema.Types.ObjectId, ref: 'InvocationLog' }],
+    command: { type: Schema.Types.ObjectId, ref: 'Command', required: true },
+    result: { type: String },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    logs: [{ type: Schema.Types.ObjectId, ref: 'InspectionLog', default: [] }],
 }, {
     timestamps: true,
     versionKey: false
@@ -54,9 +48,9 @@ schema.statics.getCollection = function ({ query, skip, limit }) {
     });
 };
 
-const Invocation = model('invocation', schema);
+const Inspection = model('inspection', schema);
 
 module.exports = {
-    Invocation,
-    InvocationStatus,
+    Inspection,
+    InspectionStatus,
 };

@@ -51,6 +51,26 @@ function disable() {
     ];
 }
 
+function invoke() {
+    return [
+        param('code')
+            .isString()
+                .withMessage('field \'code\' must be a string')
+            .notEmpty()
+                .withMessage('field \'code\' cannot be an empty string'),
+        body('messageId')
+            .isString()
+                .withMessage('field \'messageId\' must be a string')
+            .notEmpty()
+                .withMessage('field \'messageId\' cannot be an empty string'),
+        body('requestId')
+            .isString()
+                .withMessage('field \'requestId\' must be a string')
+            .notEmpty()
+                .withMessage('field \'requestId\' cannot be an empty string'),
+    ];
+}
+
 function remove() {
     return [
         param('id')
@@ -66,5 +86,6 @@ module.exports = {
     create: create(),
     disable: disable(),
     enable: enable(),
+    invoke: invoke(),
     remove: remove(),
 };

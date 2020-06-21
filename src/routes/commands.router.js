@@ -20,6 +20,12 @@ router.patch('/:id/disable',
     controllers.commands.disable,
 );
 
+router.post('/:code/invoke',
+    validators.commands.invoke,
+    validation.validate,
+    controllers.commands.invoke,
+);
+
 router.patch('/:id/enable',
     validators.commands.enable,
     validation.validate,

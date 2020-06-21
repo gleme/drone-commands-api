@@ -1,10 +1,11 @@
 const _ = require('lodash');
-const { Command } = require('../models');
+const { Command, Inspection, InspectionLog } = require('../models');
 const { commands } = require('../../exceptions');
+const drone = require('../../services/drone');
 
 const { CommandAlreadyExistsError, CommandDoesNotExistError } = commands;
 
-async function create(createCommandDto, author) {
+async function create(createCommandDto, user) {
     
     const { name, code } = createCommandDto;
 
@@ -16,7 +17,7 @@ async function create(createCommandDto, author) {
 
     command = await Command.create({
         ...createCommandDto,
-        author
+        author: user,
     });
 
     return command;
@@ -62,10 +63,36 @@ async function remove(id) {
     return Command.findByIdAndDelete(command._id);
 }
 
+
+async function invoke(dto, user) {
+    const { requestId, messageId, code } = dto;
+
+    const command = await Command.findByCode(code);
+
+    if (!command) {
+        throw new CommandDoesNotExistError();
+    }
+
+    const log = await InspectionLog.create({ who: user });
+    const inspection = await Inspection.create({
+        requestId,
+        messageId,
+        command,
+        user,
+        logs: [log._id],
+    });
+
+    await drone.invokeCommand(command, inspection);
+
+    return inspection;
+}
+
+
 module.exports = {
     create,
     enable,
     disable,
+    invoke,
     listAll,
     remove,
 };

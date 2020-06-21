@@ -1,12 +1,13 @@
 const { Command } = require('./command');
-const { Invocation, InvocationStatus } = require('./invocation');
-const { InvocationLog } = require('./invocation-log');
+const { Inspection, InspectionStatus } = require('./inspection');
+const { InspectionLog, InspectionLogEvent } = require('./inspection-log');
 const { User } = require('./user');
 
 module.exports = {
     Command,
-    Invocation,
-    InvocationStatus,
-    InvocationLog,
+    Inspection,
+    InspectionStatus,
+    InspectionLog,
+    InspectionLogEvent,
     User,
 };

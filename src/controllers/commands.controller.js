@@ -4,9 +4,8 @@ const exceptions = require('../exceptions');
 
 async function create(req, res, next) {
     try {
-        const author = req.user;
         const dto = matchedData(req, { onlyValidData: true });
-        const command = await commandsService.create(dto, author)
+        const command = await commandsService.create(dto, req.user)
         res.status(201).json(command);    
     } catch (error) {
         next(error);
@@ -40,6 +39,16 @@ async function disable(req, res, next) {
     }
 }
 
+async function invoke(req, res, next) {
+    try {
+        const dto = matchedData(req, { onlyValidData: true });
+        const inspection = await commandsService.invoke(dto, req.user);
+        res.status(200).json(inspection);
+    } catch (error) {
+        next(error);
+    }
+}
+
 async function remove(req, res, next) {
     try {
         await commandsService.remove(req.params.id);
@@ -66,6 +75,7 @@ module.exports = {
     disable,
     enable,
     errorHandler,
+    invoke,
     listAll,
     remove,
 };

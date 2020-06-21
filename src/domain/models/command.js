@@ -12,8 +12,8 @@ const schema = new Schema({
     versionKey: false
 });
 
-schema.statics.findByName = function(name) {
-    return this.findOne({ name });
+schema.statics.findByCode = function(code) {
+    return this.findOne({ code });
 }
 
 const Command = model('command', schema);
