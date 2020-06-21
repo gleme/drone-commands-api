@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { auth } = require('../../config');
 const strategies = require('./strategies');
 
-function encrypt(data) {
+async function encrypt(data) {
     return bcrypt.hash(data, auth.saltRounds)
 }
 

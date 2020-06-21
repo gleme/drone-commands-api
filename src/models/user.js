@@ -19,10 +19,6 @@ const schema = new Schema({
     versionKey: false
 });
 
-schema.statics.findOneByEmail = function(email) {
-    return this.findOne({ email });
-}
-
 const User = model('user', schema);
 
 module.exports = {

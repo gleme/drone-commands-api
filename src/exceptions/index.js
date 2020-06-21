@@ -1,5 +1,5 @@
-const { UserUnauthorizedException } = require('./user-unathorized.exception');
+const users = require('./users');
 
 module.exports = {
-    UserUnauthorizedException,
+    users,
 };
