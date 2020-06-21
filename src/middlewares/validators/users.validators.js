@@ -1,4 +1,12 @@
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
+const { Types } = require('mongoose');
+
+function isObjectId(value) {
+    if (!Types.ObjectId.isValid(value)) {
+        throw new Error('Invalid ObjectId');
+    }
+    return true;
+}
 
 function create() {
     return [
@@ -28,6 +36,68 @@ function create() {
     ];
 }
 
-module.exports = {
-    create: create(),
+function remove() {
+    return [
+        param('id')
+            .isString()
+                .withMessage('field \'id\' must be a string')
+            .notEmpty()
+                .withMessage('field \'id\' cannot be an empty string')
+            .custom(isObjectId),
+    ];
 }
+
+function partiallyUpdate() {
+    return [
+        param('id')
+            .isString()
+                .withMessage('field \'id\' must be a string')
+            .notEmpty()
+                .withMessage('field \'id\' cannot be an empty string')
+            .custom(isObjectId),
+        body('firstName')
+            .optional()
+            .isString()
+                .withMessage('field \'firstName\' must be a string')
+            .notEmpty()
+                .withMessage('field \'firstName\' cannot be an empty string'),
+        body('lastName')
+            .optional()
+            .isString()
+                .withMessage('field \'firstName\' must be a string')
+            .notEmpty()
+                .withMessage('field \'firstName\' cannot be an empty string'),
+    ];
+}
+
+function activate() {
+    return [
+        param('id')
+            .isString()
+                .withMessage('field \'id\' must be a string')
+            .notEmpty()
+                .withMessage('field \'id\' cannot be an empty string')
+            .custom(isObjectId),
+    ];
+}
+
+function inactivate() {
+    return [
+        param('id')
+            .isString()
+                .withMessage('field \'id\' must be a string')
+            .notEmpty()
+                .withMessage('field \'id\' cannot be an empty string')
+            .custom(isObjectId),
+    ];
+}
+
+
+
+module.exports = {
+    activate: activate(),
+    create: create(),
+    inactivate: inactivate(),
+    partiallyUpdate: partiallyUpdate(),
+    remove: remove(),
+};

@@ -57,9 +57,51 @@ async function remove(id) {
     return User.deleteOne({ _id: id });
 }
 
+async function listAll() {
+    return User.find().select('-password');
+}
+
+async function partiallyUpdate(id, data) {
+
+    const user = await User.findById({ _id: id }).select('-password');
+
+    if (!user) {
+        throw new UserDoesNotExistError();
+    }
+
+    return User.findByIdAndUpdate(user._id, { ...data }, { new: true });
+}
+
+async function activate(id) {
+    const user = await User.findById({ _id: id }).select('-password');
+    
+    if (!user) {
+        throw new UserDoesNotExistError();
+    }
+
+    user.isActive = true;
+    await user.save();
+    return user;
+}
+
+async function inactivate(id) {
+    const user = await User.findById({ _id: id }).select('-password');
+    
+    if (!user) {
+        throw new UserDoesNotExistError();
+    }
+    user.isActive = false;
+    await user.save();
+    return user;
+}
+
 module.exports = {
+    activate,
     create,
     get,
+    inactivate,
+    listAll,
     login,
+    partiallyUpdate,
     remove
 };
