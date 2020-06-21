@@ -14,6 +14,6 @@ const schema = new Schema({
     versionKey: false
 });
 
-const InvocationLog = model('invocationlog', schema);
+const InvocationLog = model('InvocationLog', schema);
 
 module.exports = { InvocationLog, InvocationLogEvent };

@@ -16,7 +16,7 @@ schema.statics.findByCode = function(code) {
     return this.findOne({ code });
 }
 
-const Command = model('command', schema);
+const Command = model('Command', schema);
 
 module.exports = {
     Command

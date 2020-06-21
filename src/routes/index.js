@@ -9,6 +9,7 @@ router.use('/commands',
     passport.authenticate(strategies.local.name, { session: false }),
     require('./commands.router')
 );
+router.use('/invocations', require('./invocations.router'));
 router.use('/users', require('./users.router'));
 
 module.exports = router;

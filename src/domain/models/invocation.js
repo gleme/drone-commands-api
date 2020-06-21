@@ -48,7 +48,7 @@ schema.statics.getCollection = function ({ query, skip, limit }) {
     });
 };
 
-const Invocation = model('invocation', schema);
+const Invocation = model('Invocation', schema);
 
 module.exports = {
     Invocation,

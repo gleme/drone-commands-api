@@ -19,7 +19,7 @@ const schema = new Schema({
     versionKey: false
 });
 
-const User = model('user', schema);
+const User = model('User', schema);
 
 module.exports = {
     User,
