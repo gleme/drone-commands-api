@@ -1,11 +1,14 @@
 const express = require('express');
-const router = express.Router();
-const authRouter = require('./auth.router');
-const usersRouter = require('./users.router');
-const commandsRouter = require('./commands.router');
+const passport = require('passport');
+const strategies = require('../services/auth/strategies');
 
-router.use('/auth', authRouter);
-router.use('/commands', commandsRouter);
-router.use('/users', usersRouter);
+const router = express.Router();
+
+router.use('/auth', require('./auth.router'));
+router.use('/commands', 
+    passport.authenticate(strategies.local.name, { session: false }),
+    require('./commands.router')
+);
+router.use('/users', require('./users.router'));
 
 module.exports = router;

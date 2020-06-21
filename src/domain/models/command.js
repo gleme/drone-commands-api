@@ -6,7 +6,7 @@ const schema = new Schema({
     executablePath: { type: String, required: true },
     arguments: [{ type: String, default: [] }],
     author: { type: Schema.Types.ObjectId, ref: 'User' },
-    active: { type: Boolean, default: true }
+    enabled: { type: Boolean, default: true }
 }, {
     timestamps: true,
     versionKey: false

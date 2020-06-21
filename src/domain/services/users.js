@@ -44,7 +44,7 @@ async function login(dto) {
 }
 
 function get(id) {
-    return User.findOne({ _id: id, active: true });
+    return User.findOne({ _id: id, isActive: true });
 }
 
 async function remove(id) {
@@ -54,7 +54,7 @@ async function remove(id) {
         throw new UserDoesNotExistError();
     }
 
-    return User.deleteOne({ _id: id });
+    return User.findByIdAndDelete(id);
 }
 
 async function listAll() {

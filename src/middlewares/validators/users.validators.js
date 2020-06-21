@@ -1,12 +1,5 @@
 const { body, param } = require('express-validator');
-const { Types } = require('mongoose');
-
-function isObjectId(value) {
-    if (!Types.ObjectId.isValid(value)) {
-        throw new Error('Invalid ObjectId');
-    }
-    return true;
-}
+const { isObjectId } = require('./utils');
 
 function create() {
     return [

@@ -10,5 +10,6 @@ router.post('/login',
     controllers.auth.login,
 );
 
+router.use(controllers.auth.errorHandler);
 
 module.exports = router;

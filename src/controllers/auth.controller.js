@@ -9,15 +9,20 @@ async function login(req, res, next) {
         const token = await userService.login(dto);
         res.status(200).json({ token });
     } catch (error) {
-        if (error instanceof UserUnauthorizedError) {
-            return res.boom.unauthorized(error.message);
-        }
-
         next(error);
     }
 }
 
+async function errorHandler(error, req, res, next) {
+    if (error instanceof UserUnauthorizedError) {
+        return res.boom.unauthorized(error.message);
+    }
+
+    next(error);
+}
+
 
 module.exports = {
+    errorHandler,
     login,
 };
