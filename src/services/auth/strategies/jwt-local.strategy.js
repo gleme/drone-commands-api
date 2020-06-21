@@ -1,7 +1,7 @@
 const { ExtractJwt, Strategy } = require('passport-jwt');
 const _ = require('lodash');
 const { auth } = require('../../../config');
-const usersService = require('../../users');
+const usersService = require('../../../domain/services/users');
 
 const strategy = new Strategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

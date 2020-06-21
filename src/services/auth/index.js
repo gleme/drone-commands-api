@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { auth } = require('../../config');
-const strategies = require('./strategies');
 
 async function encrypt(data) {
     return bcrypt.hash(data, auth.saltRounds)
@@ -18,6 +17,5 @@ function generateToken(data) {
 module.exports = {
     encrypt,
     generateToken,
-    strategies,
     verifyEncrypted,
 };

@@ -1,5 +1,5 @@
 const { spawn } = require('child_process');
-const { Command } = require('../models');
+const { Command } = require('../domain/models');
 
 async function invokeCommand(name) { 
 

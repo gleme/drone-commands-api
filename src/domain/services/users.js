@@ -1,7 +1,11 @@
 const _ = require('lodash');
 const { User } = require('../models');
-const { UserUnauthorizedException, UserAlreadyExistsError } = require('../exceptions/users');
-const authService = require('./auth');
+const {
+    UserUnauthorizedException,
+    UserAlreadyExistsError,
+    UserDoesNotExistError,
+} = require('../../exceptions/users');
+const authService = require('../../services/auth');
 
 async function create(dto) {
 
@@ -43,8 +47,19 @@ function get(id) {
     return User.findOne({ _id: id, active: true });
 }
 
+async function remove(id) {
+    let user = User.findById(id);
+
+    if (!user) {
+        throw new UserDoesNotExistError();
+    }
+
+    return User.deleteOne({ _id: id });
+}
+
 module.exports = {
     create,
     get,
     login,
+    remove
 };

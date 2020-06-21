@@ -4,7 +4,7 @@ const authRouter = require('./auth.router');
 const usersRouter = require('./users.router');
 const commandsRouter = require('./commands.router');
 
-router.user('/auth', authRouter);
+router.use('/auth', authRouter);
 router.use('/commands', commandsRouter);
 router.use('/users', usersRouter);
 

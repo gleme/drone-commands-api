@@ -1,4 +1,4 @@
-const services = require('../services');
+const services = require('../domain/services');
 const { UserUnauthorizedException } = require('../exceptions');
 
 async function login(req, res, next) { 

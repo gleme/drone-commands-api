@@ -13,7 +13,15 @@ class UserUnauthorizedError extends Error {
     }
 }
 
+class UserDoesNotExistError extends Error {
+    constructor(message) {
+        super(message || 'User does not exist');
+        this.name = 'UserDoesNotExist';
+    }
+}
+
 module.exports = {
     UserUnauthorizedError,
     UserAlreadyExistsError,
+    UserDoesNotExistError,
 };

@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const passport = require('passport');
 const _ = require('lodash');
 
-const { strategies } = require('./services/auth');
+const strategies = require('./services/auth/strategies');
 const routes = require('./routes');
 
 const app = express();

@@ -1,5 +1,5 @@
 
-const userService = require('../services/users');
+const userService = require('../domain/services/users');
 const { UserUnauthorizedError, UserAlreadyExistsError } = require('../exceptions/users');
 
 async function create(req, res, next) { 
