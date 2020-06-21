@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const InspectionLogEvent = {
+const InvocationLogEvent = {
     INVOKED: 'INVOKED',
     STARTED: 'STARTED',
     CANCELLED: 'STOPPED',
@@ -8,12 +8,12 @@ const InspectionLogEvent = {
 
 const schema = new Schema({
     who: { type: Schema.Types.ObjectId, ref: 'User' },
-    what: { type: String, enum: Object.values(InspectionLogEvent), default: InspectionLogEvent.INVOKED }
+    what: { type: String, enum: Object.values(InvocationLogEvent), default: InvocationLogEvent.INVOKED }
 }, {
     timestamps: true,
     versionKey: false
 });
 
-const InspectionLog = model('inspectionlog', schema);
+const InvocationLog = model('invocationlog', schema);
 
-module.exports = { InspectionLog, InspectionLogEvent };
+module.exports = { InvocationLog, InvocationLogEvent };

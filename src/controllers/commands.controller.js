@@ -42,8 +42,8 @@ async function disable(req, res, next) {
 async function invoke(req, res, next) {
     try {
         const dto = matchedData(req, { onlyValidData: true });
-        const inspection = await commandsService.invoke(dto, req.user);
-        res.status(200).json(inspection);
+        const invocation = await commandsService.invoke(dto, req.user);
+        res.status(200).json(invocation);
     } catch (error) {
         next(error);
     }

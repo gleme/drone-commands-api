@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { Command, Inspection, InspectionLog } = require('../models');
+const { Command, Invocation, InvocationLog } = require('../models');
 const { commands } = require('../../exceptions');
 const drone = require('../../services/drone');
 
@@ -73,8 +73,8 @@ async function invoke(dto, user) {
         throw new CommandDoesNotExistError();
     }
 
-    const log = await InspectionLog.create({ who: user });
-    const inspection = await Inspection.create({
+    const log = await InvocationLog.create({ who: user });
+    const invocation = await Invocation.create({
         requestId,
         messageId,
         command,
@@ -82,9 +82,9 @@ async function invoke(dto, user) {
         logs: [log._id],
     });
 
-    await drone.invokeCommand(command, inspection);
+    await drone.invokeCommand(command, invocation);
 
-    return inspection;
+    return invocation;
 }
 
 
