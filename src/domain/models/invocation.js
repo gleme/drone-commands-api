@@ -21,7 +21,7 @@ const schema = new Schema({
     messageId: { type: String, unique: true, required: true },
     command: { type: Schema.Types.ObjectId, ref: 'Command', required: true },
     result: { type: String, default: '' },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', /** required: true */ },
     logs: [{ type: Schema.Types.ObjectId, ref: 'InvocationLog', default: [] }],
 }, {
     timestamps: true,

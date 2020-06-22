@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use('/auth', require('./auth.router'));
 router.use('/commands', 
-    passport.authenticate(strategies.local.name, { session: false }),
+    // passport.authenticate(strategies.local.name, { session: false }),
     require('./commands.router')
 );
 router.use('/invocations', require('./invocations.router'));
