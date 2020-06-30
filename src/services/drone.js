@@ -30,6 +30,14 @@ async function invokeCommand(command, invocation) {
         console.log('exit:', code);
     });
     
+    cmdProcess.stderr.on('data', async data => {
+        await Invocation.update({ _id: invocation._id }, [{
+            $set: {
+                result: { $concat: ['$result', `\n${data.toString()}`] },
+            },
+        }]);
+    });
+
     cmdProcess.stdout.on('data', async data => {
         await Invocation.update({ _id: invocation._id }, [{
             $set: {
